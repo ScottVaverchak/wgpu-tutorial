@@ -431,7 +431,12 @@ impl State {
             label: Some("camera_bind_group"),
         });
 
-        let clear_color = wgpu::Color::BLACK;
+        let clear_color = wgpu::Color { 
+            r: 0.1, 
+            g: 0.1, 
+            b: 0.2, 
+            a: 1.0, 
+        };
 
         let light_uniform = LightUniform { 
             position: [2.0, 2.0, 2.0],
@@ -591,21 +596,22 @@ impl State {
     }
 
     fn input(&mut self, event: &WindowEvent) -> bool { 
-        let mouse_color = match event {
-            WindowEvent::CursorMoved { position, .. } => {
-                self.clear_color = wgpu::Color {
-                    r: position.x as f64 / self.size.width as f64,
-                    g: position.y as f64 / self.size.height as f64, 
-                    b: 1.0, 
-                    a: 1.0,
-                };
+        // let mouse_color = match event {
+        //     WindowEvent::CursorMoved { position, .. } => {
+        //         self.clear_color = wgpu::Color {
+        //             r: position.x as f64 / self.size.width as f64,
+        //             g: position.y as f64 / self.size.height as f64, 
+        //             b: 1.0, 
+        //             a: 1.0,
+        //         };
 
-                true
-            }, 
-            _ => false
-        };
+        //         true
+        //     }, 
+        //     _ => false
+        // };
 
-        self.camera_controller.process_events(event) || mouse_color
+        self.camera_controller.process_events(event) 
+        //|| mouse_color
     }
 
     fn update(&mut self) { 
