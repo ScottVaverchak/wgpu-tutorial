@@ -376,7 +376,7 @@ impl State {
                             binding: 0, 
                             visibility: wgpu::ShaderStages::FRAGMENT, 
                             ty: wgpu::BindingType::Texture {
-                                multisampled: false, 
+                                multisampled: false,
                                 view_dimension: wgpu::TextureViewDimension::D2,
                                 sample_type: wgpu::TextureSampleType::Float { 
                                     filterable: true,
@@ -388,10 +388,28 @@ impl State {
                             binding: 1, 
                             visibility: wgpu::ShaderStages::FRAGMENT, 
                             ty: wgpu::BindingType::Sampler(
-                                wgpu::SamplerBindingType::Filtering
+                                wgpu::SamplerBindingType::Filtering,
                             ),
                             count: None,
                         },
+                        wgpu::BindGroupLayoutEntry { 
+                            binding: 2, 
+                            visibility: wgpu::ShaderStages::FRAGMENT, 
+                            ty: wgpu::BindingType::Texture {
+                                multisampled: false,
+                                sample_type: wgpu::TextureSampleType::Float { filterable: true },
+                                view_dimension: wgpu::TextureViewDimension::D2,
+                            },
+                            count: None,
+                        },
+                        wgpu::BindGroupLayoutEntry { 
+                            binding: 3, 
+                            visibility: wgpu::ShaderStages::FRAGMENT, 
+                            ty: wgpu::BindingType::Sampler(
+                                wgpu::SamplerBindingType::Filtering,
+                            ),
+                            count: None,
+                        }
                     ],
                     label: Some("texture_bind_group_layout"),
                 }
@@ -402,7 +420,7 @@ impl State {
             .unwrap();
 
         let camera = Camera {
-            eye: (0.0, 1.0, 2.0).into(), 
+            eye: (0.0, 5.0, 8.0).into(), 
             target: (0.0, 0.0, 0.0).into(), 
             up: cgmath::Vector3::unit_y(), 
             aspect: config.width as f32 / config.height as f32,
